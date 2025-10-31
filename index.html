@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Фрукты</title>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+    <h1>Список фруктов</h1>
+    <div id="fruits"></div>
+
+    <script>
+        function Fruit(name, color, weight, price) {
+            this.name = name;
+            this.color = color;
+            this.weight = weight;
+            this.price = price;
+
+            this.getInfo = function() {
+                return `Фрукт: ${this.name}, Цвет: ${this.color}, Вес: ${this.weight}г, Цена: ${this.price} руб.`;
+            };
+
+            this.calculatePricePerKilo = function() {
+                return (this.price / (this.weight / 1000)).toFixed(2);
+            };
+
+            this.isExpensive = function() {
+                return this.price > 50 ? 'Да' : 'Нет';
+            };
+        }
+
+        const fruits = [
+            new Fruit('Яблоко', 'Красное', 150, 30),
+            new Fruit('Банан', 'Желтый', 120, 25),
+            new Fruit('Апельсин', 'Оранжевый', 200, 40),
+            new Fruit('Груша', 'Зеленая', 180, 35),
+            new Fruit('Виноград', 'Фиолетовый', 300, 80),
+            new Fruit('Киви', 'Коричневый', 100, 20)
+        ];
+
+        const fruitsContainer = document.getElementById('fruits');
+        fruits.forEach(fruit => {
+            const div = document.createElement('div');
+            div.className = 'fruit';
+            div.innerHTML = `
+                <p>${fruit.getInfo()}</p>
+                <p>Цена за кг: ${fruit.calculatePricePerKilo()} руб.</p>
+                <p>Дорогой: ${fruit.isExpensive()}</p>
+                <hr>
+            `;
+            fruitsContainer.appendChild(div);
+        });
+    </script>
+</body>
+</html>
